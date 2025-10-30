@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/projects/Mlops_Project/mlruns/0/d43e6efff5c84f39883687a9554d67ca/artifacts
+end_time: 1761829805815
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d43e6efff5c84f39883687a9554d67ca
+run_name: capricious-shad-356
+run_uuid: d43e6efff5c84f39883687a9554d67ca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761829797688
+status: 3
+tags: []
+user_id: Lenovo
