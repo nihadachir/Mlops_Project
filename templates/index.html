@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Wine Quality Prediction</title>
+        <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/styles.css" rel="stylesheet" />
+        
+        <style>
+            .wine-form-container {
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                padding: 2.5rem;
+                margin: 2rem auto;
+                max-width: 900px;
+            }
+            
+            .form-header {
+                text-align: center;
+                margin-bottom: 2rem;
+                color: #5a2d2d;
+                border-bottom: 1px solid #e8d8d8;
+                padding-bottom: 1rem;
+            }
+            
+            .form-header h2 {
+                font-family: 'Lora', serif;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+            
+            .form-header p {
+                color: #7a4a4a;
+                font-size: 1.1rem;
+            }
+            
+            .form-row-total {
+                display: flex;
+                flex-wrap: wrap;
+                margin-bottom: 1.5rem;
+                gap: 1.5rem;
+            }
+            
+            .form-group {
+                flex: 1;
+                min-width: 200px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+                color: #5a2d2d;
+            }
+            
+            .form-control {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 1px solid #d4c1c1;
+                border-radius: 6px;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+                background-color: #f9f5f5;
+            }
+            
+            .form-control:focus {
+                outline: none;
+                border-color: #9e5a5a;
+                box-shadow: 0 0 0 2px rgba(158, 90, 90, 0.2);
+                background-color: #fff;
+            }
+            
+            .field-description {
+                font-size: 0.85rem;
+                color: #8a6d6d;
+                margin-top: 0.4rem;
+                font-style: italic;
+            }
+            
+            .btn-predict {
+                display: block;
+                width: 100%;
+                padding: 1rem;
+                background: linear-gradient(to right, #8b4513, #a0522d);
+                color: white;
+                border: none;
+                border-radius: 6px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-top: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            
+            .btn-predict:hover {
+                background: linear-gradient(to right, #a0522d, #8b4513);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .wine-icon {
+                font-size: 1.5rem;
+                margin-right: 0.5rem;
+                color: #8b4513;
+            }
+            
+            .result-container {
+                margin-top: 2rem;
+                padding: 1.5rem;
+                border-radius: 8px;
+                text-align: center;
+                display: none;
+            }
+            
+            .result-good {
+                background-color: #e8f5e9;
+                border: 1px solid #c8e6c9;
+                color: #2e7d32;
+            }
+            
+            .result-average {
+                background-color: #fff3e0;
+                border: 1px solid #ffe0b2;
+                color: #ef6c00;
+            }
+            
+            .result-poor {
+                background-color: #ffebee;
+                border: 1px solid #ffcdd2;
+                color: #c62828;
+            }
+            
+            .result-title {
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+            
+            .quality-rating {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin: 0.5rem 0;
+            }
+            
+            .quality-description {
+                margin-top: 0.5rem;
+                font-style: italic;
+            }
+            
+            @media (max-width: 768px) {
+                .form-row-total {
+                    flex-direction: column;
+                    gap: 0;
+                }
+                
+                .form-group {
+                    min-width: 100%;
+                }
+                
+                .wine-form-container {
+                    padding: 1.5rem;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <!-- Navigation items can be added here -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('static/assets/img/background.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>Wine Quality Prediction</h1>
+                            <span class="subheading">A Wine Quality Checking Web App</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="wine-form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-wine-glass-alt wine-icon"></i>Wine Quality Assessment</h2>
+                    <p>Enter the wine characteristics to predict its quality</p>
+                </div>
+                
+                <!-- FORMULAIRE CORRIGÉ -->
+                <form class="form-detail" action="/predict" method="post">
+                    <div class="form-row-total">
+                        <div class="form-group">
+                            <label for="fixed_acidity">Fixed Acidity</label>
+                            <input type="number" step="0.01" name="fixed_acidity" id="fixed_acidity" class="form-control" placeholder="e.g., 7.4" required>
+                            <div class="field-description">Primary fixed acids (g/dm³)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="volatile_acidity">Volatile Acidity</label>
+                            <input type="number" step="0.01" name="volatile_acidity" id="volatile_acidity" class="form-control" placeholder="e.g., 0.7" required>
+                            <div class="field-description">Acetic acid content (g/dm³)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row-total">
+                        <div class="form-group">
+                            <label for="citric_acid">Citric Acid</label>
+                            <input type="number" step="0.01" name="citric_acid" id="citric_acid" class="form-control" placeholder="e.g., 0.0" required>
+                            <div class="field-description">Citric acid content (g/dm³)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="residual_sugar">Residual Sugar</label>
+                            <input type="number" step="0.01" name="residual_sugar" id="residual_sugar" class="form-control" placeholder="e.g., 1.9" required>
+                            <div class="field-description">Sugar remaining after fermentation (g/dm³)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row-total">
+                        <div class="form-group">
+                            <label for="chlorides">Chlorides</label>
+                            <input type="number" step="0.001" name="chlorides" id="chlorides" class="form-control" placeholder="e.g., 0.076" required>
+                            <div class="field-description">Sodium chloride content (g/dm³)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="free_sulfur_dioxide">Free Sulfur Dioxide</label>
+                            <input type="number" step="0.1" name="free_sulfur_dioxide" id="free_sulfur_dioxide" class="form-control" placeholder="e.g., 11.0" required>
+                            <div class="field-description">Free SO₂ (mg/dm³)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row-total">
+                        <div class="form-group">
+                            <label for="total_sulfur_dioxide">Total Sulfur Dioxide</label>
+                            <input type="number" step="0.1" name="total_sulfur_dioxide" id="total_sulfur_dioxide" class="form-control" placeholder="e.g., 34.0" required>
+                            <div class="field-description">Total SO₂ (mg/dm³)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="density">Density</label>
+                            <input type="number" step="0.0001" name="density" id="density" class="form-control" placeholder="e.g., 0.9978" required>
+                            <div class="field-description">Density of wine (g/cm³)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row-total">
+                        <div class="form-group">
+                            <label for="pH">pH</label>
+                            <input type="number" step="0.01" name="pH" id="pH" class="form-control" placeholder="e.g., 3.51" required>
+                            <div class="field-description">Acidity level (scale 0-14)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sulphates">Sulphates</label>
+                            <input type="number" step="0.01" name="sulphates" id="sulphates" class="form-control" placeholder="e.g., 0.56" required>
+                            <div class="field-description">Potassium sulphate content (g/dm³)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row-total">
+                        <div class="form-group">
+                            <label for="alcohol">Alcohol</label>
+                            <input type="number" step="0.1" name="alcohol" id="alcohol" class="form-control" placeholder="e.g., 9.4" required>
+                            <div class="field-description">Alcohol content (% by volume)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- BOUTON CORRIGÉ -->
+                    <div class="form-row-last">
+                        <button type="submit" class="btn-predict">
+                            <i class="fas fa-chart-line"></i> Predict Wine Quality
+                        </button>
+                    </div>
+                </form>
+                
+               
+            </div>
+        </div>
+
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/nihad-achir-191888299/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            <li class="list-inline-item">
+                                <a href="https://github.com/nihadachir">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic"></div>
+                        <div class="small text-center text-muted fst-italic"></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="static/js/scripts.js"></script>
+        
+        
+    </body>
+</html>

@@ -1,70 +1,73 @@
-# Mlops_Project
+# Wine Quality Prediction with MLflow
 
-## Workflows:
-1. Update config.yaml
-2. Update schema.yaml (just don't keep it empty)
-3. Update params.yaml (just don't keep it empty)
-4. Update the entity
-5. Update the configuration manager in src config
-6. Update the components
-7. Update the pipeline 
-8. Update the main.py
-9. Update the app.py
+This project is an **end-to-end machine learning pipeline** for predicting **wine quality** based on physicochemical features. It includes **data preprocessing, model training, evaluation, and MLflow experiment tracking**, along with a local web app (`app.py`) for making predictions.
 
+---
 
-# How to run?
-### STEPS:
+## Project Workflows
 
-Clone the repository
+1. Update `config.yaml`  
+2. Update `schema.yaml`  
+3. Update `params.yaml`  
+4. Update the entity  
+5. Update the configuration manager in `src/config`  
+6. Update components in `src/components`  
+7. Update the pipeline in `src/pipeline`  
+8. Update `main.py`  
+9. Update `app.py`  
+
+---
+
+## How to Run
+
+### Step 1: Clone the repository
 
 ```bash
-https://github.com/nihadachir/Mlops_Project
-```
-### STEP 01- Create a conda environment after opening the repository
-
-```bash
+git clone https://github.com/nihadachir/Mlops_Project.git
+cd Mlops_Project
+Step 2: Create and activate a conda environment
+bash
+Copier le code
 conda create -n mlproj python=3.8 -y
-```
-
-```bash
 conda activate mlproj
-```
-
-
-### STEP 02- install the requirements
-```bash
+Step 3: Install dependencies
+bash
+Copier le code
 pip install -r requirements.txt
-```
+Step 4: Configure MLflow (Optional)
+You can track experiments locally or using DagsHub.
 
+For DagsHub:
 
-```bash
-# Finally run the following command
+bash
+Copier le code
+export MLFLOW_TRACKING_URI=https://dagshub.com/<username>/<repo>.mlflow
+export MLFLOW_TRACKING_USERNAME=<username>
+export MLFLOW_TRACKING_PASSWORD=<personal-access-token>
+For Local MLflow:
+
+bash
+Copier le code
+mlflow ui --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5000
+Visit: http://127.0.0.1:5000 to access the MLflow UI.
+
+Step 5: Run the Web App
+bash
+Copier le code
 python app.py
-```
+Open your browser at http://127.0.0.1:5000 (or the port specified in app.py).
 
-Now,
-```bash
-open up you local host and port
-```
+Input wine features and get the predicted wine quality score.
 
+Optional: Run the Pipeline
+bash
+Copier le code
+python main.py
+Executes the full pipeline end-to-end: data preprocessing → training → evaluation → MLflow logging.
 
+MLflow
+Track experiments: Log parameters, metrics, and trained models.
 
-## MLflow
+Visualize results: Use MLflow UI locally or via DagsHub.
 
-[Documentation](https://mlflow.org/docs/latest/index.html)
-
-
-##### cmd
-- mlflow ui
-
-### dagshub
-[dagshub](https://dagshub.com/)
-
-import dagshub
-dagshub.init(repo_owner='nihadachir', repo_name='Mlops_Project', mlflow=True)
-
-import mlflow
-with mlflow.start_run():
-  mlflow.log_param('parameter name', 'value')
-  mlflow.log_metric('metric name', 1)
-
+Official MLflow Documentation
