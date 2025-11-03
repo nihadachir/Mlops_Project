@@ -25,49 +25,56 @@ This project is an **end-to-end machine learning pipeline** for predicting **win
 ```bash
 git clone https://github.com/nihadachir/Mlops_Project.git
 cd Mlops_Project
-Step 2: Create and activate a conda environment
-bash
+```
+
+### Step 2: Create and activate a conda environment
+```bash
 Copier le code
 conda create -n mlproj python=3.8 -y
 conda activate mlproj
-Step 3: Install dependencies
-bash
+```
+### Step 3: Install dependencies
+```bash
 Copier le code
 pip install -r requirements.txt
-Step 4: Configure MLflow (Optional)
+```
+### Step 4: Configure MLflow (Optional)
 You can track experiments locally or using DagsHub.
 
 For DagsHub:
 
-bash
-Copier le code
+```bash
+
 export MLFLOW_TRACKING_URI=https://dagshub.com/<username>/<repo>.mlflow
 export MLFLOW_TRACKING_USERNAME=<username>
 export MLFLOW_TRACKING_PASSWORD=<personal-access-token>
+```
 For Local MLflow:
+```bash
 
-bash
-Copier le code
 mlflow ui --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5000
-Visit: http://127.0.0.1:5000 to access the MLflow UI.
 
-Step 5: Run the Web App
-bash
+Visit: http://127.0.0.1:5000 to access the MLflow UI.
+```
+### Step 5: Run the Web App
+```bash
 Copier le code
 python app.py
+```
 Open your browser at http://127.0.0.1:5000 (or the port specified in app.py).
 
 Input wine features and get the predicted wine quality score.
 
-Optional: Run the Pipeline
-bash
+## Optional: Run the Pipeline
+```bash
 Copier le code
 python main.py
 Executes the full pipeline end-to-end: data preprocessing → training → evaluation → MLflow logging.
-
-MLflow
+```
+## MLflow
 Track experiments: Log parameters, metrics, and trained models.
 
 Visualize results: Use MLflow UI locally or via DagsHub.
 
-Official MLflow Documentation
+### Official MLflow Documentation
+https://mlflow.org/docs/latest/index.html
